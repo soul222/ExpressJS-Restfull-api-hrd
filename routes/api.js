@@ -17,14 +17,13 @@ router.get("/", (req, res) => {
 
 
 // Routing for Employees
+router.get("/employees/search", EmployeesController.search);
 router.get("/employees", EmployeesController.index);
-router.post("/emoployees/", EmployeesController.store);
-router.get("/emoployees/:id", EmployeesController.show);
-router.put("/emoployees/:id", EmployeesController.update);
-router.delete("/emoployees/:id", EmployeesController.destroy);
-router.delete("/emoployees/:name", EmployeesController.search);
-router.delete("/emoployees/:status", EmployeesController.getStatus);
-
+router.get("/employees/status", EmployeesController.getStatus);
+router.post("/employees", EmployeesController.store);
+router.get("/employees/:id", EmployeesController.show);
+router.put("/employees/:id", EmployeesController.update);
+router.delete("/employees/:id", EmployeesController.destroy);
 
 // export routing
 module.exports = router;
