@@ -24,22 +24,25 @@ class EmployeesController {
         }
     }
 
-    async store(req, res) {
+   async store(req, res) {
+        const { name, gender, phone, address, email, status, hired_on} = req.body;
         try {
-            const employee = await employees.create(req.body);
-            
-            if (employee) {
+            const newEmployeeId = await employees.create(req.body);
+    
+            if (newEmployeeId) {
+                // Gunakan ID yang diterima untuk mendapatkan detail karyawan yang baru dibuat
+                const newEmployee = await employees.find(newEmployeeId);
+    
                 const data = {
                     message: "Resource is added successfully",
-                    data: employee,
+                    data: newEmployee,
                 };
                 res.status(201).json(data);
-                
             } else {
-                res.status(402).json({ message: "All field must be filled correctly" });
+                res.status(402).json({ message: "All fields must be filled correctly" });
             }
         } catch (error) {
-            res.status(500).json({ message: "Internal Server Error" });
+            res.status(500).json({ message: "Internal Server Error", error: error.message });
         }
     }
 
