@@ -14,13 +14,21 @@ class employees {
     }
 
     // promise 1
-    static async create(Student) {
-        const id = await new Promise((resolve, reject) => {
+    static create(employees) {
+        return new Promise((resolve, reject) => {
             const sql = "INSERT INTO employees SET ?";
-            db.query(sql, Student, (err, results) => {
-                resolve(results.insertId);
+            db.query(sql, employees, (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    // Menggunakan callback untuk mendapatkan ID dari hasil operasi INSERT
+                    resolve(results.insertId);
+                }
             });
         });
+    }
+    
+
 
 
         // promise 2
